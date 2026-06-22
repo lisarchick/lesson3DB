@@ -38,6 +38,41 @@ def autorixation():
         print('hello')
     else:
         ('i dont know who u are')
+
+def create_product():
+    try:
+        cursor.execute(''' CREATE TABLE IF NOT EXISTS product(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        price FLOAT NOT NUll,
+        count INTEGER
+    )
+''')
+        print("sucessfuly start")
+    except Exception as ex:
+        print('donr work')
+        print(ex)
+def add_product():
+    name_products = str(input('input name of product: '))
+    price_products = str(input('input name of product: '))
+    count_products = str(input("input count of products"))
+    cursor.execute ("INSERT INTO product (name, price, count) VALUES (?, ?, ?)",
+                    (name_products, price_products, count_products))
+    conn.commit()
+def find_product():
+    find_name_product = str(input('which product u search'))
+    find_product_cart = '%' + find_name_product + '%' 
+    cursor.execute(
+        "SELECT * FROM product WHERE name LIKE ? ", (find_product_cart, )
+    )
+    rows = cursor.fetchall()
+    if rows:
+        for i in rows:       
+            print(i[1], i[2])
+    else:
+        print('i dont find this product')
+        
+    
         
 
 if __name__ == "__main__":
@@ -53,3 +88,11 @@ if __name__ == "__main__":
             add_balance(balance, login)
     elif question == "log in".lower():
             autorixation()
+            action = str(input("your move: "))
+            if action == "shop":
+                create_product()
+                add_my_product = str(input("add your product: ")). lower()
+                add_product()
+                find_product()
+                
+        
