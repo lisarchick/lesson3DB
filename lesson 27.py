@@ -30,6 +30,16 @@ def add_balance(balance,login):
                    (balance, login))
     conn.commit()
 
+def autorixation():
+    user_login = str(input("input log: "))
+    test = cursor.execute('SELECT id FROM users WHERE login = ?',
+                     (user_login, ))
+    if test.fetchone() is not None:
+        print('hello')
+    else:
+        ('i dont know who u are')
+        
+
 if __name__ == "__main__":
     question = str(input("register or log in ?"))
     create_db()
@@ -42,4 +52,4 @@ if __name__ == "__main__":
             balance = float(input("add your balance sir: "))
             add_balance(balance, login)
     elif question == "log in".lower():
-        pass
+            autorixation()
